@@ -10,7 +10,7 @@ st.set_page_config(
 )
 @st.cache_resource
 def load_model():
-    return joblib.load('models/Titanic_model_DT.pkl')
+    return joblib.load('models/svc0.pkl')
 
 model = load_model()
 
