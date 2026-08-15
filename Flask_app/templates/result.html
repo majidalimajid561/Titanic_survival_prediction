@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Prediction Result</title>
+    <style>
+        /* Same base styles as home.html for consistency */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background:  #0a1e3c;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        .card {
+            max-width: 520px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 20, 40, 0.08);
+            padding: 40px 44px;
+            text-align: center;
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 40px rgba(0, 20, 40, 0.12);
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0a1e3c;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, #e9edf4, #cbd5e1, #e9edf4);
+            margin: 16px 0 28px 0;
+            border: 0;
+        }
+
+        /* --- Result Box --- */
+        .result-box {
+            padding: 24px 16px;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 1px solid #edf2f7;
+            margin-bottom: 24px;
+        }
+
+        .emoji-big {
+            font-size: 56px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .status {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .status.survived {
+            color: #0b6e4f;
+        }
+
+        .status.perished {
+            color: #b91c1c;
+        }
+
+        .sub-text {
+            color: #5e6f8d;
+            font-size: 15px;
+            margin-top: 4px;
+        }
+
+        .confidence {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed #dce2ec;
+        }
+
+        .confidence-label {
+            color: #5e6f8d;
+            font-size: 14px;
+        }
+
+        .confidence-value {
+            font-weight: 700;
+            color: #0a1e3c;
+            font-size: 18px;
+        }
+
+        /* --- Error Message --- */
+        .error-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 18px 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 15px;
+            text-align: left;
+        }
+
+        /* --- Back Button --- */
+        .btn-back {
+            display: inline-block;
+            padding: 12px 32px;
+            background: #0a1e3c;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background 0.2s;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background: #1e4a7a;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 18px;
+            }
+            .status {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <h1>🚢 Prediction Result</h1>
+        </div>
+        <hr class="divider" />
+
+        <!-- If there is an error -->
+        {% if error %}
+            <div class="error-box">
+                ❌ {{ error }}
+            </div>
+        {% else %}
+            <!-- Success: Show survival status -->
+            <div class="result-box">
+                {% if survived == 1 %}
+                    <span class="emoji-big">🎉</span>
+                    <div class="status survived">SURVIVED</div>
+                    <p class="sub-text">This passenger would have survived the tragedy.</p>
+                {% else %}
+                    <span class="emoji-big">💔</span>
+                    <div class="status perished">DID NOT SURVIVE</div>
+                    <p class="sub-text">This passenger would not have survived the tragedy.</p>
+                {% endif %}
+
+                <div class="confidence">
+                    <span class="confidence-label">Model Confidence</span><br />
+                    <span class="confidence-value">{{ (probability * 100) | round(1) }}%</span>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Back button -->
+        <a href="/" class="btn-back">← Predict Again</a>
+    </div>
+
+</body>
+</html>

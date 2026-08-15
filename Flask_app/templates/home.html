@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Titanic Survival Predictor</title>
+    <style>
+        /* ------------------------------ */
+        /* 1. RESET & BASE STYLES         */
+        /* ------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background:  #0a1e3c;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        /* ------------------------------ */
+        /* 2. MAIN CARD                   */
+        /* ------------------------------ */
+        .card {
+            max-width: 640px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 20, 40, 0.08);
+            padding: 40px 44px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 40px rgba(0, 20, 40, 0.12);
+        }
+
+        /* ------------------------------ */
+        /* 3. HEADER                      */
+        /* ------------------------------ */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a1e3c;
+            letter-spacing: -0.5px;
+        }
+
+        .header h1 span {
+            color: #1e4a7a;
+        }
+
+        .header p {
+            color: #5e6f8d;
+            font-size: 15px;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, #e9edf4, #cbd5e1, #e9edf4);
+            margin: 18px 0 28px 0;
+            border: 0;
+        }
+
+        /* ------------------------------ */
+        /* 4. FORM ELEMENTS               */
+        /* ------------------------------ */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 24px;
+            margin-bottom: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            color: #1f2a44;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-group label .required {
+            color: #c24141;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            background: #ffffff;
+            border: 1.5px solid #dce2ec;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #121826;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            font-family: inherit;
+        }
+
+        /* Custom dropdown arrow */
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235e6f8d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 14px;
+            cursor: pointer;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #1e4a7a;
+            box-shadow: 0 0 0 3px rgba(30, 74, 122, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #9aa9bf;
+        }
+
+        /* ------------------------------ */
+        /* 5. SUBMIT BUTTON               */
+        /* ------------------------------ */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            background:#0a1e3c;
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-submit:hover {
+            background: #1e4a7a;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* ------------------------------ */
+        /* 6. RESPONSIVE                  */
+        /* ------------------------------ */
+        @media (max-width: 520px) {
+            .card {
+                padding: 24px 18px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🚢 Titanic <span>Survival</span></h1>
+            <p>Enter the passenger details below to predict the outcome.</p>
+        </div>
+        <hr class="divider" />
+
+        <!-- FORM -->
+        <!-- action="/predict" sends data to your Flask route -->
+        <form action="/predict" method="POST">
+
+            <!-- Row 1: Pclass + Sex -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Passenger Class <span class="required">*</span></label>
+                    <select name="Pclass" required>
+                        <option value="">Select</option>
+                        <option value="1">1st Class (Upper)</option>
+                        <option value="2">2nd Class (Middle)</option>
+                        <option value="3">3rd Class (Lower)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sex <span class="required">*</span></label>
+                    <select name="Sex" required>
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Row 2: Age + Fare -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Age (years) <span class="required">*</span></label>
+                    <input type="number" name="Age" placeholder="e.g. 29" min="0.5" max="100" step="0.1" required />
+                </div>
+                <div class="form-group">
+                    <label>Fare (GBP) <span class="required">*</span></label>
+                    <input type="number" name="Fare" placeholder="e.g. 32.50" min="0" step="0.01" required />
+                </div>
+            </div>
+
+            <!-- Row 3: Embarked + Family Size -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Port of Embarkation <span class="required">*</span></label>
+                    <select name="Embarked" required>
+                        <option value="">Select</option>
+                        <option value="C">Cherbourg (C)</option>
+                        <option value="Q">Queenstown (Q)</option>
+                        <option value="S">Southampton (S)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Family Size (SibSp + Parch) <span class="required">*</span></label>
+                    <input type="number" name="family_size" placeholder="e.g. 2" min="0" max="10" required />
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn-submit">🔮 Predict Survival</button>
+
+        </form>
+    </div>
+
+</body>
+</html>
