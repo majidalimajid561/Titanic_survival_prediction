@@ -4,15 +4,6 @@ A **Flask-based machine learning web application** that predicts whether a passe
 
  <!-- Replace with your actual screenshot path -->
 
----
-
-## 📊 Live Demo
-
-> **Live URL**: [https://your-app-name.onrender.com](https://your-app-name.onrender.com)  
-> *(Update this link with your actual Render/PythonAnywhere URL after deployment)*
-
----
-
 ## 📝 Table of Contents
 
 - [🚢 Titanic Survival Prediction Web App](#-titanic-survival-prediction-web-app)
