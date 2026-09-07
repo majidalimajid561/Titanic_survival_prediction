@@ -15,9 +15,10 @@ The dataset is the classic [Titanic dataset](https://www.kaggle.com/c/titanic/da
 
 ## How to run
 1. Clone the repository:
-   ```gtbash
+   ```bash
    [git clone <your-repo-url>](https://github.com/majidalimajid561/Titanic_survival_prediction)
    cd Titanic_survival_prediction
    pip install -r requirements.txt
 
-   
+👨‍💻 Author
+Majid Mehmood
