@@ -1,7 +1,6 @@
-pandas
-scikit-learn==1.7.2
-joblib
-streamlit
-numpy
-python
-
+fastapi==0.112.2
+uvicorn==0.30.6
+pydantic==2.8.2
+Scikit-learn==1.7.2
+Pandas==2.3.3
+NumPy==2.2.5

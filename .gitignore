@@ -1,32 +1,16 @@
-# IDE
-
-.vscode/
-
-# Python environment
-
-venv/
-env/
-.env/
-
 # Python cache
-
 __pycache__/
 *.pyc
 
-# Jupyter notebook checkpoints
+# Virtual environments
+venv/
+env/
+.venv/
 
-.ipynb_checkpoints/
+# Model files (Uncomment if your .pkl is > 100MB)
+# *.pkl
+# models/
 
-# Dataset (publicly available, keep repo small)
-
-data/
-
-# Streamlit secrets (if you use them later)
-
-.streamlit/secrets.toml
-
-# OS junk
-
-.DS_Store
-Thumbs.db
-*.log
+# IDE folders
+.vscode/
+.idea/
